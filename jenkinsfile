@@ -1,0 +1,29 @@
+node {
+    def mvnHome = tool name: 'maven-home', type: 'maven' // Maven-home defined as a variable.
+    stage('SCM-Checkout') { // Git pull repo from github
+        git branch: 'main', credentialsId: 'Github-credentials', url: 'https://github.com/ubadav007/tomcat-repo.git'
+    }
+    stage('mvn-clean') { // Maven clean 
+        sh "${mvnHome}/bin/mvn clean"
+        // bin/mvn: location of maven on jenkins server
+    }
+    stage('mvn-compile') { // Maven compile
+        sh "${mvnHome}/bin/mvn compile"
+    }
+    stage('mvn-test') { // Maven test
+        sh "${mvnHome}/bin/mvn test"
+    }
+     stage('mvn-package') { // Maven package
+        sh "${mvnHome}/bin/mvn package"
+    }
+    stage('Tomcat-deployment') { // tomcat deployment using ssh connection
+        sshagent(['ec2-user-ssh']) {
+			sh "scp -o StrictHostKeyChecking=no target/tomcat-repo.war ec2-user@172.31.82.3:/opt/tomcat/webapps"
+			// scp: means secure copy artifact
+			// -o: means 
+			// StrictHostKeyChecking=no -means limit host verification
+			// target/tomcat-demo.war -Location of .war file in jenkins workspace
+			// ec2-user@172.31.81.9:/opt/tomcat/webapps - Log in as ec2-user on tomcat server using ip and paste articact to /opt/tomcat/webapps  
+	    }
+    }
+}
