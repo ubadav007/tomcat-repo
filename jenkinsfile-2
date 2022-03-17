@@ -1,23 +1,19 @@
-node {  
-    def mvnHome = tool name: 'maven home', type: 'maven'
-    stage('SCM-Checkout') { 
-        git branch: 'main', credentialsId: 'Git-Credentials', url: 'https://github.com/ubadav007/tomcat-repo.git' 
+node {
+    def mvnHome = tool name: 'maven-home', type: 'maven' // Maven-home defined as a variable.
+    stage('SCM-Checkout') { // Git pull repo from github
+        git branch: 'main', credentialsId: 'Github-credentials', url: 'https://github.com/ubadav007/tomcat-repo.git'
     }
-    stage('mvn-clean') { 
+    stage('mvn-clean') { // Maven clean
         sh "${mvnHome}/bin/mvn clean"
+        // bin/mvn: location of maven on jenkins server
     }
-    stage('mvn-compile') { 
+    stage('mvn-compile') { // Maven compile
         sh "${mvnHome}/bin/mvn compile"
     }
-    stage('mvn-test') { 
+    stage('mvn-test') { // Maven test
         sh "${mvnHome}/bin/mvn test"
     }
-    stage('mvn-package') { 
+     stage('mvn-package') { // Maven package
         sh "${mvnHome}/bin/mvn package"
-    }
-    stage('Sonar-Analysis') { 
-         withSonarQubeEnv('sonarqube') {
-            sh '${mvnHome}/bin/mvn sonar:sonar'
-        }
     }
 }
