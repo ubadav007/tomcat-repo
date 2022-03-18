@@ -29,5 +29,11 @@ node {
               }
           }
       }
+      stage('Tomcat-deployment') { // tomcat deployment using ssh connection
+        sshagent(['ec2-user']) {
+			sh "scp -o StrictHostKeyChecking=no target/tomcat-demo.war ec2-user@172.31.89.126:/opt/tomcat/webapps"
+			
+	    }
+    }
 }
 
