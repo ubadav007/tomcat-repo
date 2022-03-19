@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title Everyday with Isa Rodrigez</title>
+  <title>Everyday with Isa Rodrigez</title>
 </head>
 
 <body>
@@ -32,6 +32,6 @@
   <div id="contact">
     <p><strong>email</strong>: isa@fashionblog.com | <strong>phone</strong>: 917-555-1098 | <strong>address</strong>: 371 284th St, New York, NY, 10001</p>
   </div>
-</body>
+
 
 </html>
