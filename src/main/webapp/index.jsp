@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Everyday with Isa Ubani!</title>
+  <title>Everyday with Isa Ubani!!</title>
 </head>
 
 <body>
