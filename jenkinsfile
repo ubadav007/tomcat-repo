@@ -10,7 +10,7 @@ node {
     stage('mvn-compile') { // Maven compile
         sh "${mvnHome}/bin/mvn compile"
     }
-    stage('mvn-test') { // Maven test
+    stage('mvn-tests') { // Maven test
         sh "${mvnHome}/bin/mvn test"
     }
      stage('mvn-package') { // Maven package
